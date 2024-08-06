@@ -1,0 +1,78 @@
+.home {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    .container {
+        h1 {
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        table {
+            thead{
+                tr {
+                    th {
+                        height: 6rem;
+                        vertical-align: middle;
+                        font-size: 2rem;
+                        &:first-child {
+                            text-align: center;
+                        }
+                        &:last-child {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        height: 6rem;
+                        vertical-align: middle;
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                        &:first-child {
+                            text-align: center;
+                        }
+                        &:last-child {
+                            text-align: center;
+                        }
+                        button,a {
+                            margin-right: 1rem;
+                            svg {
+                                path {
+                                    fill: rgb(29, 64, 91);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.loaderParent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10rem;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgb(29, 64, 91);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 

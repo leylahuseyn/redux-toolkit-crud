@@ -1,0 +1,20 @@
+.addPage {
+    padding: 6rem 0;
+    .container {
+        h1 {
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .add {
+            display: flex;
+            justify-content: center;
+            width: 30%;
+            margin: 0 auto;
+            transform: translateX(-5rem);
+            form {
+                width: 100%;
+            }
+        }
+    }
+}

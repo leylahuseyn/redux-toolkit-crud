@@ -1,0 +1,27 @@
+header {
+    height: 10rem;
+    background-color: rgb(29, 64, 91);
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 3rem;
+            li {
+                a {
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1.6rem;
+                    transition: all 0.3s ease;
+                    &:hover {
+                        color: rgb(255, 255, 255, 0.7);
+                    }
+                }
+            }
+        }
+    }
+}

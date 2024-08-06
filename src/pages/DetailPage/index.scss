@@ -1,0 +1,20 @@
+.detailPage {
+    padding: 6rem 0;
+    .container {
+        h1 {
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        p {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: center;
+            span {
+                font-weight: 600;
+                color: rgb(29, 64, 91);
+            }
+        }
+    }
+}
