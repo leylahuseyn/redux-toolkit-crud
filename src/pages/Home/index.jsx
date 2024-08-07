@@ -6,19 +6,31 @@ import {
   deleteCategories,
   fetchCategoriesAsync,
 } from "../../redux/Slices/categoriesSlice";
-import { faCircleInfo, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { addFavorite, removeFavorite } from "../../redux/Slices/favoritesSlice";
+import { faCircleInfo, faTrash, faPenToSquare, faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.value);
   const status = useSelector((state) => state.categories.status);
   const error = useSelector((state) => state.categories.error);
+  const favorites = useSelector((state) => state.favorites.items);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCategoriesAsync());
   }, [dispatch]);
+
+  const handleAddFavorite = (category) => {
+    const existingItem = favorites.find(item => item.id === category.id);
+    if (existingItem) {
+      alert('This item is already in your favorites.');
+    } else {
+      dispatch(addFavorite(category));
+    }
+  };
 
   return (
     <Layout>
@@ -26,7 +38,7 @@ const Home = () => {
         <div className="container">
           <h1>Categories list</h1>
 
-          <table className="table table-bordered table-striped">
+          <table className="table table-bordered ">
             <thead>
               <tr>
                 <th>id</th>
@@ -50,7 +62,7 @@ const Home = () => {
                   </td>
                 </tr>
               ) : null}
-              {status === "succeeded"
+              {status === "succeeded" && Array.isArray(categories) 
                 ? categories.map((category) => (
                     <tr key={category.id}>
                       <td>{category.id}</td>
@@ -66,6 +78,19 @@ const Home = () => {
                           }
                         >
                           <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                        <button
+                          onClick={() => navigate(`/edit/${category.id}`)}
+                        >
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </button>
+                        <button>
+                          <FontAwesomeIcon icon={faCartPlus} />
+                        </button>
+                        <button
+                          onClick={() => handleAddFavorite(category)}
+                        >
+                          <FontAwesomeIcon icon={faHeart} />
                         </button>
                       </td>
                     </tr>

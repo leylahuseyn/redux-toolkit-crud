@@ -1,8 +1,7 @@
-import { getCategory } from "../../api"
+import { getCategory } from '../../api';
 
-
-export async function categoryLoader({ params }) {
-    const { categoryId } = params
-    const resp = await getCategory(categoryId);
-    return resp.data
-}
+export const categoryLoader = async ({ params }) => {
+  const { categoryId } = params;
+  const category = await getCategory(categoryId);
+  return category;
+};

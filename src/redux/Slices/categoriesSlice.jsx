@@ -1,11 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteCategory, fetchCategories, createCategory } from "../../api";
-
+import { deleteCategory, fetchCategories, createCategory, editCategory, getCategory } from "../../api";
 
 export const fetchCategoriesAsync = createAsyncThunk(
-  "products/fetchCategories",
+  "categories/fetchCategories",
   async () => {
     const response = await fetchCategories();
+    return response.data;
+  }
+);
+
+export const createCategoriesAsync = createAsyncThunk(
+  "categories/createCategory",
+  async (category) => {
+    const response = await createCategory(category);
+    return response.data;
+  }
+);
+
+export const editCategoriesAsync = createAsyncThunk(
+  "categories/editCategory",
+  async (category) => {
+    const response = await editCategory(category);
     return response.data;
   }
 );
@@ -17,19 +32,15 @@ const initialState = {
 };
 
 export const categoriesSlice = createSlice({
-  name: "products",
+  name: "categories",
   initialState,
   reducers: {
     setCategories: (state, action) => {
       state.value = action.payload;
     },
-    createCategories: (state, action) => {
-      createCategory(action.payload);
-      state.value.push(action.payload);
-    },
     deleteCategories: (state, action) => {
       deleteCategory(action.payload);
-      state.value = state.value.filter((user) => user.id !== action.payload);
+      state.value = state.value.filter((category) => category.id !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -44,11 +55,35 @@ export const categoriesSlice = createSlice({
       .addCase(fetchCategoriesAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(createCategoriesAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(createCategoriesAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.value.push(action.payload);
+      })
+      .addCase(createCategoriesAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(editCategoriesAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(editCategoriesAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const index = state.value.findIndex(category => category.id === action.payload.id);
+        if (index !== -1) {
+          state.value[index] = action.payload;
+        }
+      })
+      .addCase(editCategoriesAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setCategories, deleteCategories, createCategories } =
-  categoriesSlice.actions;
+export const { setCategories, deleteCategories } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

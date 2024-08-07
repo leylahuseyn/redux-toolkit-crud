@@ -18,3 +18,8 @@ export const getCategory = async (id) => {
 export const createCategory = async (data) => {
   return await axios.post(BASE_URL, data);
 }
+export const editCategory = async (category) => {
+  
+  const response = await axios.put(`/api/categories/${category.id}`, category);
+  return response.data;
+};

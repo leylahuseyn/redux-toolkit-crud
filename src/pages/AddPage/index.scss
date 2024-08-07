@@ -1,20 +1,40 @@
-.addPage {
+.add-page {
     padding: 6rem 0;
+    
+        text-align: center;
     .container {
-        h1 {
-            margin-bottom: 4rem;
-            text-align: center;
-            font-weight: 600;
-        }
-        .add {
-            display: flex;
-            justify-content: center;
-            width: 30%;
-            margin: 0 auto;
-            transform: translateX(-5rem);
-            form {
-                width: 100%;
+       form{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+       }
+            h1 {
+              margin-bottom: 20px;
             }
+          
+            input {
+              width: 300px;
+              padding: 15px;
+              margin-bottom: 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 12px;
+            }
+          
+            button {
+              width: 80px;
+              padding: 10px;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 12px;
+              &:hover {
+                background-color: #0056b3;
+              }
+            }
+          }
+          
         }
-    }
-}
+ 

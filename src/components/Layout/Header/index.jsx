@@ -3,10 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
 
 const Header = () => {
-
-//   const [showMenu, setShowMenu] = useState('');
-
-
   return (
     <header>
       <div className="container">
@@ -18,10 +14,10 @@ const Header = () => {
                 <Link to="/add-product">Add category</Link>
             </li>
             <li>
-                <Link to="/fav">Favorites <sup>0</sup></Link>
+                <Link to="/fav">Favorites</Link>
             </li>
             <li>
-                <Link to="/basket">Basket <sup>0</sup></Link>
+                <Link to="/basket">Basket</Link>
             </li>
         </ul>
       </div>

@@ -10,9 +10,11 @@ const DetailPage = () => {
     <Layout>
       <main className="detailPage">
         <div className="container">
-          <h1>Detail Page</h1>
-          <p>
-            Category name: <span>{categoryLoader?.name}</span>
+          <p className="text-danger">
+             Name: <span>{categoryLoader?.name}</span>
+          </p>
+          <p className="text-danger">
+            Description: <span>{categoryLoader?.description}</span>
           </p>
         </div>
       </main>

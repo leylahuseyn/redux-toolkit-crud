@@ -1,104 +1,47 @@
-import Layout from '../../components/Layout'
-import { Button, Form, Input } from 'antd'
-import './index.scss'
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { createCategories, fetchCategoriesAsync } from '../../redux/Slices/categoriesSlice';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-
+import { createCategoriesAsync } from '../../redux/Slices/categoriesSlice';
+import Layout from '../../components/Layout';
+import './index.scss';
 
 const AddPage = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.value);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-
-    useEffect(() => {
-        dispatch(fetchCategoriesAsync());
-        }, [dispatch]);
-
-    const onFinish = (values) => {
-        dispatch(createCategories({id: categories.length + 1, name: values.name, description: values.description}));
-        setTimeout(() => {
-            navigate('/', { replace: true });
-        }, 1000);
-      };
-
-      
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const handleSave = async () => {
+    await dispatch(createCategoriesAsync({ name, description }));
+    navigate('/');
   };
 
   return (
     <Layout>
-        <main className="addPage">
-            <div className="container">
-            <h1>Add Category</h1>
-
-           <div className="add">
-           <Form
-    name="basic"
-    labelCol={{
-      span: 8,
-    }}
-    wrapperCol={{
-      span: 16,
-    }}
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-    }}
-    onFinish={onFinish}
-    onFinishFailed={onFinishFailed}
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Name"
-      name="name"
-      rules={[
-        {
-          required: true,
-          message: 'Please input category name!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      label="Description"
-      name="description"
-      rules={[
-        {
-          required: true,
-          message: 'Please input category description!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-
-    <Form.Item
-      wrapperCol={{
-        offset: 8,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Add category
-      </Button>
-    </Form.Item>
-  </Form>
-           </div>
-
-            </div>
-        </main>
+      <div className="add-page">
+        <div className="container">
+          <h1>Add Category</h1>
+          <div className="add ">
+            <form onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+              />
+              <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description"
+              />
+              <button type="submit">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default AddPage
+export default AddPage;

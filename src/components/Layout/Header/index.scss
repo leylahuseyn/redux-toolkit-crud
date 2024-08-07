@@ -1,6 +1,10 @@
+body{
+    background-color: white;
+}
+
 header {
     height: 10rem;
-    background-color: rgb(29, 64, 91);
+    background-color: teal;
     .container {
         display: flex;
         justify-content: center;
